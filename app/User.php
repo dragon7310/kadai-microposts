@@ -61,8 +61,8 @@ class User extends Authenticatable
         
         $its_me = $this->id == $userId;
         
-        if( $exist && $its_me) {
-            $this->following()->detach($userId);
+        if( $exist && !$its_me) {
+            $this->followings()->detach($userId);
             return true;
         }else{
             return false;
@@ -77,7 +77,7 @@ class User extends Authenticatable
     {
         $follow_user_ids = $this->followings()->pluck('users.id')->toArray();
         $follow_user_ids[] = $this->id;
-        return Microposts::whereIn('user_id', $follow_user_ids);
+        return Micropost::whereIn('user_id', $follow_user_ids);
     }
     
 }

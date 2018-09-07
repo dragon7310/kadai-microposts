@@ -9,7 +9,7 @@ class UserFollowController extends Controller
     public function store(Request $request, $id)
     {
         \Auth::user()->follow($id);
-        return redidect()->back();
+        return redirect()->back();
     }
     
     public function destroy($id)
